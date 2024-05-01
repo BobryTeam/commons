@@ -1,13 +1,7 @@
 class TrendData:
-    def __init__():
+    def __init__(self):
         '''
         Инициализация класса
-        '''
-        pass
-
-    def from_str(string: str):
-        '''
-        Конструирует тренд дату из строки
         '''
         pass
 
@@ -16,3 +10,10 @@ class TrendData:
         Превращает тренд дату в строку
         '''
         pass
+
+class TrendDataFromStr(TrendData):
+    def __init__(self, string: str):
+        '''
+        Инициализация класса из строки
+        '''
+        return super().__init__()
