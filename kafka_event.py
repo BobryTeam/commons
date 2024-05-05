@@ -10,13 +10,13 @@ class KafkaEventReader:
     Класс, который считывает сообщения с кафки и сохраняет их в виде ивентов
     '''
 
-    def __init__(self, kafka_config: KafkaConfig):
+    def __init__(self, kafka_config: KafkaConfig, event_queue: Queue):
         '''
         Подписка к кафке с помощью конфига
         '''
         self.consumer = KafkaConsumer(...)
         self.running = True
-        self.events = Queue()
+        self.events = event_queue
 
     async def read_events(self):
         '''
