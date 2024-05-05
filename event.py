@@ -2,6 +2,7 @@ from typing import Union
 from enum import Enum
 
 from trend_data import *
+from scale_data import *
 
 
 class EventType(Enum):
@@ -20,7 +21,7 @@ class EventTypeConstants:
 
 
 class Event:
-    def __init__(self, type: EventType, data: Union[str, TrendData]):
+    def __init__(self, type: EventType, data: Union[str, TrendData, ScaleData]):
         self.type = type
         self.data = data
 
