@@ -9,13 +9,20 @@ class EventType(Enum):
     # Event of invalid message
     Invalid = 'erro'
     # General usage event with a string message
+    # mesg <message>
     Message = 'mesg'
 
     # Trend Analyser -> Observer Manager, Observer Manager -> Decision Module, Decision Module Manager -> Decision Module AI
+    # trda <str(TrendData)>
     TrendData = 'trda'
     # Observer Manager -> Metrics Collector
+    # updm <str(MetricsData)>
     GetMetrics = 'getm'
+    # Observer Manager -> Metrics Collector
+    # updm <metrics_file_path>
+    UpdateMetrics = 'updm'
     # Decision Module AI -> Decision Module Manager
+    # sck8 <str(ScaleData)>
     Scalek8s = 'sck8'
 
 
