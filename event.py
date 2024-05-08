@@ -1,14 +1,23 @@
-from typing import Union
 from enum import Enum
 
 from trend_data import *
 from scale_data import *
+from metrics_data import *
 
 
 class EventType(Enum):
+    # Event of invalid message
     Invalid = 'erro'
+    # General usage event with a string message
+    Message = 'mesg'
+
+    # Trend Analyser -> Observer Manager, Observer Manager -> Decision Module, Decision Module Manager -> Decision Module AI
     TrendData = 'trda'
+    # Observer Manager -> Metrics Collector
+    GetMetrics = 'getm'
+    # Decision Module AI -> Decision Module Manager
     Scalek8s = 'sck8'
+
 
 _event_type_members = EventType._member_map_.values()
 class EventTypeConstants:
@@ -40,8 +49,12 @@ class EventFromMessage(Event):
             event_type = EventType.Invalid
 
         match event_type:
+            case EventType.Message:
+                data = data
             case EventType.TrendData:
                 data = TrendDataFromStr(data)
+            case EventType.GetMetrics:
+                data = MetricsData(data)
             case EventType.Scalek8s:
                 data = ScaleDataFromStr(data)
             case _:
