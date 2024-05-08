@@ -21,7 +21,7 @@ class EventTypeConstants:
 
 
 class Event:
-    def __init__(self, type: EventType, data: Union[str, TrendData, ScaleData]):
+    def __init__(self, type: EventType, data):
         self.type = type
         self.data = data
 
@@ -48,6 +48,4 @@ class EventFromMessage(Event):
                 data = f'Error: got invalid message: {kafka_message}'
 
         return super().__init__(event_type, data)
-
-
 
