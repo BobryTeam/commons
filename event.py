@@ -62,6 +62,8 @@ class EventFromMessage(Event):
                 data = TrendDataFromStr(data)
             case EventType.GetMetrics:
                 data = MetricsData(data)
+            case EventType.UpdateMetrics:
+                data = data
             case EventType.Scalek8s:
                 data = ScaleDataFromStr(data)
             case _:
