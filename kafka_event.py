@@ -1,20 +1,20 @@
 from queue import Queue
-from typing import Optional
 
 from kafka import KafkaConsumer, KafkaProducer
 
 from event import *
+
 
 class KafkaEventReader:
     '''
     Класс, который считывает сообщения с кафки и сохраняет их в виде ивентов
     '''
 
-    def __init__(self, kafka_config: KafkaConfig, event_queue: Queue):
+    def __init__(self, kafka_consumer: KafkaConsumer, event_queue: Queue):
         '''
         Подписка к кафке с помощью конфига
         '''
-        self.consumer = KafkaConsumer(...)
+        self.consumer = kafka_consumer
         self.running = True
         self.events = event_queue
 
@@ -27,14 +27,6 @@ class KafkaEventReader:
             message = self.consumer.consume()
             if message is not None:
                 self.events.put(EventFromMessage(message))
-
-    def get_event(self) -> Optional[EventFromMessage]:
-        '''
-        Возвращение первого ивента из очереди ивентов, если он есть
-        '''
-        if not self.events.empty():
-            return self.events.get()
-        return None
 
     def release(self):
         '''
@@ -49,11 +41,11 @@ class KafkaEventWriter:
     Класс, который превращает ивенты в сообщения и отправляет их в кафку
     '''
 
-    def __init__(self, kafka_config: KafkaConfig):
+    def __init__(self, kafka_producer: KafkaProducer):
         '''
         Инициализация класса - подключение к кафке с помощью конфига
         '''
-        self.producer = KafkaProducer(...)
+        self.producer = kafka_producer
 
     def send_event(self, event: Event):
         '''
@@ -62,7 +54,7 @@ class KafkaEventWriter:
         message = str(event)
         self.producer.send(message)
         
-    def close(self):
+    def release(self):
         '''
         Отключение от кафки
         '''
