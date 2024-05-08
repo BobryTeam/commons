@@ -5,6 +5,8 @@ from kafka import KafkaConsumer, KafkaProducer
 from event import *
 
 
+MESSAGE_ENCODING = 'utf-8'
+
 class KafkaEventReader:
     '''
     Класс, который считывает сообщения с кафки и сохраняет их в виде ивентов
@@ -12,7 +14,7 @@ class KafkaEventReader:
 
     def __init__(self, kafka_consumer: KafkaConsumer, event_queue: Queue):
         '''
-        Подписка к кафке с помощью конфига
+        Подготовка к считыванию сообщений
         '''
         self.consumer = kafka_consumer
         self.running = True
@@ -24,9 +26,8 @@ class KafkaEventReader:
         Запущен на отдельном потоке для постоянного считывания новых сообщений
         '''
         while self.running:
-            message = self.consumer.consume()
-            if message is not None:
-                self.events.put(EventFromMessage(message))
+            for message in self.consumer:
+                self.events.put(EventFromMessage(message.value.decode(MESSAGE_ENCODING)))
 
     def release(self):
         '''
@@ -34,17 +35,17 @@ class KafkaEventReader:
         '''
         self.running = False
         self.consumer.close()
-        pass
 
 class KafkaEventWriter:
     '''
     Класс, который превращает ивенты в сообщения и отправляет их в кафку
     '''
 
-    def __init__(self, kafka_producer: KafkaProducer):
+    def __init__(self, kafka_producer: KafkaProducer, topic: str):
         '''
-        Инициализация класса - подключение к кафке с помощью конфига
+        Инициализация класса
         '''
+        self.topic = topic
         self.producer = kafka_producer
 
     def send_event(self, event: Event):
@@ -52,10 +53,10 @@ class KafkaEventWriter:
         Отправка ивента превращенного в сообщение
         '''
         message = str(event)
-        self.producer.send(message)
+        self.producer.send(self.topic, message.encode(MESSAGE_ENCODING))
         
     def release(self):
         '''
         Отключение от кафки
         '''
-        pass
+        self.producer.close()
