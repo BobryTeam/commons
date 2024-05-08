@@ -7,6 +7,7 @@ from event import *
 
 MESSAGE_ENCODING = 'utf-8'
 
+
 class KafkaEventReader:
     '''
     Класс, который считывает сообщения с кафки и сохраняет их в виде ивентов
