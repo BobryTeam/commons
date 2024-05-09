@@ -16,14 +16,17 @@ class EventType(Enum):
     # trda <str(TrendData)>
     TrendData = 'trda'
     # Observer Manager -> Metrics Collector
-    # updm <str(MetricsData)>
+    # updm
     GetMetrics = 'getm'
+    # Observer Manager -> Trend Analyser
+    # antr
+    AnalyseTrend = 'antr'
     # Observer Manager -> Metrics Collector
     # updm <metrics_file_path>
     UpdateMetrics = 'updm'
     # Decision Module AI -> Decision Module Manager
-    # sck8 <str(ScaleData)>
-    Scalek8s = 'sck8'
+    # trar <str(ScaleData)>
+    TrendAnalyseResult = 'trar'
 
 
 _event_type_members = EventType._member_map_.values()
@@ -64,7 +67,7 @@ class EventFromMessage(Event):
                 data = MetricsData(data)
             case EventType.UpdateMetrics:
                 data = data
-            case EventType.Scalek8s:
+            case EventType.TrendAnalyseResult:
                 data = ScaleDataFromStr(data)
             case _:
                 data = f'Error: got invalid message: {kafka_message}'
