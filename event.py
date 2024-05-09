@@ -16,7 +16,7 @@ class EventType(Enum):
     # trda <str(TrendData)>
     TrendData = 'trda'
     # Observer Manager -> Metrics Collector
-    # updm
+    # getm
     GetMetrics = 'getm'
     # Observer Manager -> Trend Analyser
     # antr
@@ -63,12 +63,12 @@ class EventFromMessage(Event):
                 data = data
             case EventType.TrendData:
                 data = TrendDataFromStr(data)
-            case EventType.GetMetrics:
-                data = MetricsData(data)
+            case EventType.GetMetrics: pass
             case EventType.UpdateMetrics:
                 data = data
             case EventType.TrendAnalyseResult:
                 data = ScaleDataFromStr(data)
+            case EventType.AnalyseTrend: pass
             case _:
                 data = f'Error: got invalid message: {kafka_message}'
 
