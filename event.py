@@ -1,14 +1,33 @@
-from typing import Union
 from enum import Enum
 
 from trend_data import *
 from scale_data import *
+from metrics_data import *
 
 
 class EventType(Enum):
+    # Event of invalid message
     Invalid = 'erro'
+    # General usage event with a string message
+    # mesg <message>
+    Message = 'mesg'
+
+    # Trend Analyser -> Observer Manager, Observer Manager -> Decision Module, Decision Module Manager -> Decision Module AI
+    # trda <str(TrendData)>
     TrendData = 'trda'
-    Scalek8s = 'sck8'
+    # Observer Manager -> Metrics Collector
+    # getm
+    GetMetrics = 'getm'
+    # Observer Manager -> Trend Analyser
+    # antr
+    AnalyseTrend = 'antr'
+    # Observer Manager -> Metrics Collector
+    # updm <metrics_file_path>
+    UpdateMetrics = 'updm'
+    # Decision Module AI -> Decision Module Manager
+    # trar <str(ScaleData)>
+    TrendAnalyseResult = 'trar'
+
 
 _event_type_members = EventType._member_map_.values()
 class EventTypeConstants:
@@ -40,10 +59,16 @@ class EventFromMessage(Event):
             event_type = EventType.Invalid
 
         match event_type:
+            case EventType.Message:
+                data = data
             case EventType.TrendData:
                 data = TrendDataFromStr(data)
-            case EventType.Scalek8s:
+            case EventType.GetMetrics: pass
+            case EventType.UpdateMetrics:
+                data = data
+            case EventType.TrendAnalyseResult:
                 data = ScaleDataFromStr(data)
+            case EventType.AnalyseTrend: pass
             case _:
                 data = f'Error: got invalid message: {kafka_message}'
 
