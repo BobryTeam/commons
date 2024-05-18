@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "events"
+version = "2024.18.05"
+readme = "README.md"
+dependencies = [
+  "kafka-python>=2.4",
+]
+requires-python = ">=3.12"
