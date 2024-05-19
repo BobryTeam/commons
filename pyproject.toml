@@ -10,9 +10,6 @@ requires-python = ">=3.10"
 
 [tool.setuptools]
 py-modules = ["event", "kafka_event"]
-
-[tool.setuptools.scripts]
-   install = '''
-       import subprocess
-       subprocess.run(["pip", "install", "-r", "requirements.txt"])
-   '''
+script-files = [
+    "install = 'import subprocess\nsubprocess.run([\"pip\", \"install\", \"-r\", \"requirements.txt\"])\n'",
+]
