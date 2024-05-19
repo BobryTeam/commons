@@ -6,10 +6,13 @@ build-backend = "setuptools.build_meta"
 name = "events"
 version = "2024.18.05"
 readme = "README.md"
-dependencies = [
-  "kafka-python>=2.0",
-]
 requires-python = ">=3.10"
 
 [tool.setuptools]
 py-modules = ["event", "kafka_event"]
+
+[tool.setuptools.scripts]
+   install = '''
+       import subprocess
+       subprocess.run(["pip", "install", "-r", "requirements.txt"])
+   '''
