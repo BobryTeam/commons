@@ -151,6 +151,7 @@ class KafkaEventWriter:
         '''
         message = str(event)
         self.producer.send(message)
+пукпук
         
     def close(self):
         '''
