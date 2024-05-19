@@ -4,6 +4,8 @@ from trend_data import *
 from scale_data import *
 from metrics_data import *
 
+#пукпук
+
 
 class EventType(Enum):
     # Event of invalid message
