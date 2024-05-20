@@ -1,5 +1,8 @@
 from queue import Queue
 
+import threading
+from threading import Thread
+
 from kafka import KafkaConsumer, KafkaProducer
 
 from event import *
@@ -18,24 +21,34 @@ class KafkaEventReader:
         Подготовка к считыванию сообщений
         '''
         self.consumer = kafka_consumer
-        self.running = True
-        self.events = event_queue
 
-    async def read_events(self):
+        self.running = threading.Event()
+        self.running.set()
+
+        self.event_queue = event_queue
+
+        self.reading_thread = Thread(target=self.read_events)
+        self.reading_thread.start()
+
+    def read_events(self):
         '''
         Считывание сообщений от кафки, превращение их в ивенты, сохранение в очередь ивентов
         Запущен на отдельном потоке для постоянного считывания новых сообщений
         '''
-        while self.running:
-            for message in self.consumer:
-                self.events.put(EventFromMessage(message.value.decode(MESSAGE_ENCODING)))
+        while self.running.is_set():
+            message_pack = self.consumer.poll(timeout_ms=1000)
+
+            for _topic, messages in message_pack.items():
+                for message in messages:
+                    self.event_queue.put(EventFromMessage(message.value.decode(MESSAGE_ENCODING)))
 
     def release(self):
         '''
         Отключение от кафки
         '''
-        self.running = False
+        self.running.clear()
         self.consumer.close()
+
 
 class KafkaEventWriter:
     '''
@@ -55,7 +68,7 @@ class KafkaEventWriter:
         '''
         message = str(event)
         self.producer.send(self.topic, message.encode(MESSAGE_ENCODING))
-        
+
     def release(self):
         '''
         Отключение от кафки
