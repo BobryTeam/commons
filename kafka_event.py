@@ -42,8 +42,6 @@ class KafkaEventReader:
                 for message in messages:
                     self.event_queue.put(EventFromMessage(message.value.decode(MESSAGE_ENCODING)))
 
-        self.release()
-
     def release(self):
         '''
         Отключение от кафки
