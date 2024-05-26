@@ -9,6 +9,7 @@ description = ""
 authors = ["John Smith <john@example.com>"]
 readme = "README.md"
 packages = [
+    { include = "__init__.py" },
     { include = "event.py" },
     { include = "kafka_event.py" },
 ]
