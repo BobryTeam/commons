@@ -4,8 +4,9 @@ version = "0.1.0"
 description = "A package for managing events and Kafka integration."
 authors = ["Your Name <you@example.com>"]
 packages = [
-    { include = "events" },
-    { include = "events/**/*.py" },
+    { include = "__init__.py" },
+    { include = "event.py" },
+    { include = "kafka_event.py" },
 ]
 
 [tool.poetry.dependencies]
