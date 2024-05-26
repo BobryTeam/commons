@@ -6,9 +6,10 @@ build-backend = "poetry.core.masonry.api"
 name = "events"
 version = "2024.26.05"
 description = ""
-authors = [""]
+authors = ["John Smith <john@example.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
-kafka-python = "^2.4"
+kafka-python = "^2.0.2"
