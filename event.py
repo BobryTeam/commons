@@ -2,7 +2,7 @@ from enum import Enum
 
 from trend_data import *
 from scale_data import *
-from metrics_data import *
+from metrics import *
 
 
 class EventType(Enum):
@@ -18,6 +18,9 @@ class EventType(Enum):
     # Observer Manager -> Metrics Collector
     # getm
     GetMetrics = 'getm'
+    # Metrics Collector -> Observer Manager
+    # gotm
+    GotMetrics = 'gotm'
     # Observer Manager -> Trend Analyser
     # antr
     AnalyseTrend = 'antr'
@@ -64,6 +67,7 @@ class EventFromMessage(Event):
             case EventType.TrendData:
                 data = TrendDataFromStr(data)
             case EventType.GetMetrics: pass
+            case EventType.GotMetrics: pass
             case EventType.UpdateMetrics:
                 data = data
             case EventType.TrendAnalyseResult:
