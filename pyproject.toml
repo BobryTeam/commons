@@ -3,6 +3,10 @@ name = "events"
 version = "0.1.0"
 description = "A package for managing events and Kafka integration."
 authors = ["Your Name <you@example.com>"]
+packages = [
+    { include = "events" },
+    { include = "events/**/*.py" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
