@@ -9,6 +9,10 @@ description = ""
 authors = ["John Smith <john@example.com>"]
 readme = "README.md"
 package-mode = false
+packages = [
+    { include = "event.py" },
+    { include = "kafka_event.py" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
