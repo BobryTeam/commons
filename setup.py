@@ -7,7 +7,7 @@ setup(
     install_requires=[
         'metrics @ git+https://github.com/BobryTeam/metrics.git@pip-deps',
         'trend_data @ git+https://github.com/BobryTeam/trend-data.git@pip-deps',
-        'scale_data @ git+https://github.com/BobryTeam/scale-data@pip-deps',
+        # 'scale_data @ git+https://github.com/BobryTeam/scale-data@pip-deps',
         'kafka',
     ],
     author='BobryTeam',
