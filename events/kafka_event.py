@@ -5,7 +5,7 @@ from threading import Thread
 
 from kafka import KafkaConsumer, KafkaProducer
 
-from event import *
+from .event import *
 
 
 MESSAGE_ENCODING = 'utf-8'
