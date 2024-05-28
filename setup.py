@@ -8,7 +8,7 @@ setup(
         'kafka-python',
         'metrics @ git+https://github.com/BobryTeam/metrics.git@pip-deps',
         'trend_data @ git+https://github.com/BobryTeam/trend-data.git@pip-deps',
-        'scale_data @ git+https://github.com/BobryTeam/scale-data@pip-deps',
+        'scale_data @ git+https://github.com/BobryTeam/scale-data.git@pip-deps',
     ],
     author='BobryTeam',
     author_email='sinntexxx@gmail.com',
