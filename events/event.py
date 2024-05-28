@@ -1,8 +1,8 @@
 from enum import Enum
 
+from metrics import *
 from trend_data import *
 from scale_data import *
-from metrics import *
 
 
 class EventType(Enum):
