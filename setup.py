@@ -12,7 +12,7 @@ setup(
     ],
     author='BobryTeam',
     author_email='sinntexxx@gmail.com',
-    description='ScaleData data structure',
+    description='Events and KafkaEvent* classes',
     url='https://github.com/BobryTeam/scale-data',
     classifiers=[
         'Programming Language :: Python :: 3',
