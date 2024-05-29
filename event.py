@@ -2,7 +2,7 @@ from enum import Enum
 
 from trend_data import *
 from scale_data import *
-from metrics_data import *
+from metrics import *
 
 class EventType(Enum):
     # Event of invalid message

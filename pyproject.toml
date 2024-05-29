@@ -16,3 +16,6 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.10"
 kafka-python = "^2.0.2"
+metrics = {git = "https://github.com/BobryTeam/metrics.git", branch = "feature/pyproject"}
+scale-data = {git = "https://github.com/BobryTeam/scale-data.git", branch = "feature/pyproject"}
+trend-data = {git = "https://github.com/BobryTeam/trend-data.git", branch = "feature/pyproject"}
